@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FF82558F-C4A6-4F23-BF8A-10B5B675A187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanto.Api", "src\Vanto.Api\Vanto.Api.csproj", "{0020DCED-FF33-408D-9195-46FC67D922D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanto.Application", "src\Vanto.Application\Vanto.Application.csproj", "{7AE9A595-8F94-4208-880C-FA6CEC140830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanto.Domain", "src\Vanto.Domain\Vanto.Domain.csproj", "{91F7A0DC-3FE6-4D3A-AD1A-7BB93F7641B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vanto.Infrastructure", "src\Vanto.Infrastructure\Vanto.Infrastructure.csproj", "{5DEBE370-0BD7-4C9A-9F1D-236BC2105199}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{4176B88C-322F-4D4C-A54C-9338317B9FCA}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0020DCED-FF33-408D-9195-46FC67D922D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0020DCED-FF33-408D-9195-46FC67D922D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0020DCED-FF33-408D-9195-46FC67D922D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0020DCED-FF33-408D-9195-46FC67D922D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AE9A595-8F94-4208-880C-FA6CEC140830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AE9A595-8F94-4208-880C-FA6CEC140830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AE9A595-8F94-4208-880C-FA6CEC140830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AE9A595-8F94-4208-880C-FA6CEC140830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91F7A0DC-3FE6-4D3A-AD1A-7BB93F7641B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F7A0DC-3FE6-4D3A-AD1A-7BB93F7641B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F7A0DC-3FE6-4D3A-AD1A-7BB93F7641B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F7A0DC-3FE6-4D3A-AD1A-7BB93F7641B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DEBE370-0BD7-4C9A-9F1D-236BC2105199}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DEBE370-0BD7-4C9A-9F1D-236BC2105199}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DEBE370-0BD7-4C9A-9F1D-236BC2105199}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DEBE370-0BD7-4C9A-9F1D-236BC2105199}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0020DCED-FF33-408D-9195-46FC67D922D0} = {FF82558F-C4A6-4F23-BF8A-10B5B675A187}
+		{7AE9A595-8F94-4208-880C-FA6CEC140830} = {FF82558F-C4A6-4F23-BF8A-10B5B675A187}
+		{91F7A0DC-3FE6-4D3A-AD1A-7BB93F7641B0} = {FF82558F-C4A6-4F23-BF8A-10B5B675A187}
+		{5DEBE370-0BD7-4C9A-9F1D-236BC2105199} = {FF82558F-C4A6-4F23-BF8A-10B5B675A187}
+	EndGlobalSection
+EndGlobal
