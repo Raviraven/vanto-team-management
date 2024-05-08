@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vanto.Application.Common;
 using Vanto.Application.Repositories;
@@ -11,11 +12,14 @@ public static class InfrastructureModule
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services)
     {
+        
+        services.AddDbContext<VantoDbContext>(opts => 
+            opts.UseNpgsql("Host=localhost;Port=5432;Database=vanto;Username=postgres;Password=docker"));
+        
         services.AddScoped<ITeamsRepository, TeamsRepository>();
         services.AddScoped<IMembersRepository, MembersRepository>();
         
-        //TODO: change to proper
-        services.AddScoped<IUnitOfWork, VantoDbContext>();
+        services.AddScoped<IUnitOfWork>(serviceProvider => serviceProvider.GetRequiredService<VantoDbContext>());
         
         return services;
     }

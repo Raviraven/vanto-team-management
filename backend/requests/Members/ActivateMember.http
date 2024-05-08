@@ -1,0 +1,5 @@
+@host=http://localhost:5154
+@teamId=869b0fd8-aeb0-4bee-af39-06d50fb6b3fc
+@memberId=fc73fc51-159d-4547-8a01-74a6ef61d305
+
+POST {{host}}/api/Members/{{memberId}}/activate

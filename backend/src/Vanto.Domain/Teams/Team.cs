@@ -9,7 +9,14 @@ public sealed class Team
 
     //private string Name { get; init; }
     public List<Member> Members { get; private init; }
-
+    
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    public Team()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    {
+        Members = new List<Member>();
+    }
+    
     private Team(Guid id, List<Member> members)
     {
         Id = id;

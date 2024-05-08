@@ -12,6 +12,7 @@ public sealed class Member
     private Member(Guid id, string firstName, string lastName, string email, string phoneNumber, MemberStatus status,
         DateOnly createdAt)
     {
+        Id = id;
         FirstName = firstName;
         LastName = lastName;
         Email = email;

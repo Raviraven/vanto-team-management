@@ -75,7 +75,7 @@ namespace Vanto.Api.Controllers
             );
         }
         
-        [HttpPost("{memberId:guid}/update")]
+        [HttpPut("{memberId:guid}/update")]
         public async Task<IActionResult> UpdateMember(Guid memberId, [FromBody] UpdateMemberRequest request)
         {
             var command = new UpdateMemberCommand(memberId, request.FirstName, request.LastName, request.Email,
