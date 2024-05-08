@@ -1,13 +1,14 @@
+using ErrorOr;
 using Vanto.Domain.Members;
 
 namespace Vanto.Domain.Teams;
 
 public sealed class Team
 {
-    private Guid Id { get; init; }
+    public Guid Id { get; private init; }
 
     //private string Name { get; init; }
-    private List<Member> Members { get; init; }
+    public List<Member> Members { get; private init; }
 
     private Team(Guid id, List<Member> members)
     {
@@ -20,8 +21,14 @@ public sealed class Team
         return new Team(id, members);
     }
 
-    public void AddMember(Member member)
+    public ErrorOr<Success> AddMember(Member member)
     {
+        if (Members.Any(n => n.Id == member.Id))
+        {
+            return Error.Conflict("Member already added to the team");
+        }
+        
         this.Members.Add(member);
+        return Result.Success;
     }
 }

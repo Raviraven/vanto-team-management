@@ -12,7 +12,7 @@ public class TeamsRepository : ITeamsRepository
     {
         return await Task.FromResult(
             Team.Create(
-                Guid.NewGuid(),
+                Guid.Parse("869b0fd8-aeb0-4bee-af39-06d50fb6b3fc"),
                 new List<Member> { }
             )
         );

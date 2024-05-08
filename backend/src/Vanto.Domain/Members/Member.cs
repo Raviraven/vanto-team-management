@@ -2,7 +2,6 @@ namespace Vanto.Domain.Members;
 
 public sealed class Member
 {
-    
     // left for EF Core
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
     private Member()
@@ -10,7 +9,7 @@ public sealed class Member
     {
     }
     
-    private Member(string firstName, string lastName, string email, string phoneNumber, MemberStatus status,
+    private Member(Guid id, string firstName, string lastName, string email, string phoneNumber, MemberStatus status,
         DateOnly createdAt)
     {
         FirstName = firstName;
@@ -23,7 +22,7 @@ public sealed class Member
     
     public static Member Create(string firstName, string lastName, string email, string phoneNumber, DateOnly createdAt)
     {
-        return new Member(firstName, lastName, email, phoneNumber, MemberStatus.Active, createdAt);
+        return new Member(Guid.NewGuid(), firstName, lastName, email, phoneNumber, MemberStatus.Active, createdAt);
     }
     
     public Guid Id { get; private set; }
