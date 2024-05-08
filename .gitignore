@@ -1,3 +1,5 @@
 .idea/
 **/bin/
 **/obj/
+/backend/Vanto.TeamManagement.sln.DotSettings
+/backend/Vanto.TeamManagement.sln.DotSettings.user

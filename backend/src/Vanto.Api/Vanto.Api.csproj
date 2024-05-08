@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Vanto.Application\Vanto.Application.csproj" />
+    <ProjectReference Include="..\Vanto.Infrastructure\Vanto.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
