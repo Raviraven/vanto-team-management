@@ -1,5 +1,6 @@
 using Vanto.Application.Repositories;
 using Vanto.Application.Teams.Queries.GetTeam;
+using Vanto.Domain.Members;
 using Vanto.Domain.Teams;
 
 namespace Vanto.Application.Unit_Tests.Teams.Queries.GetTeam;
@@ -21,7 +22,7 @@ public class GetTeamQueryHandlerTests
         var teamId = Guid.NewGuid();
         
         // TODO: add and verify actual members
-        var expectedTeam = Team.Create(Guid.NewGuid(), []);
+        var expectedTeam = Team.Create(Guid.NewGuid(), new List<Member>());
         _teamsRepository.GetTeamByIdAsync(teamId).Returns(expectedTeam);
         
         var query = new GetTeamQuery(teamId);
@@ -42,6 +43,6 @@ public class GetTeamQueryHandlerTests
         var result = await _sut.Handle(query, default);
         
         // Assert
-        result.Errors.Should().BeEquivalentTo([Error.NotFound("Team not found")]);
+        result.Errors.Should().BeEquivalentTo(new List<Error> {Error.NotFound("Team not found")});
     }
 }

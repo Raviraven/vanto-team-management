@@ -18,7 +18,6 @@ public class GetMemberQueryHandlerTests
     [Fact]
     public async Task ShouldReturnMember_WhenValidMemberIdIsProvided()
     {
-        
         var memberId = Guid.NewGuid();
         // TODO: add MemberBuilder
         var expectedMember = Member.Create("John", "Doe", "john.doe@test.com", "555-222-333",
@@ -40,6 +39,6 @@ public class GetMemberQueryHandlerTests
         var query = new GetMemberQuery(memberId);
         var result = await _sut.Handle(query, default);
         
-        result.Errors.Should().BeEquivalentTo([Error.NotFound("Team member not found")]);
+        result.Errors.Should().BeEquivalentTo(new List<Error> { Error.NotFound("Team member not found") });
     }
 }

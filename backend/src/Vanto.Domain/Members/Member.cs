@@ -26,6 +26,7 @@ public sealed class Member
         return new Member(firstName, lastName, email, phoneNumber, MemberStatus.Active, createdAt);
     }
     
+    public Guid Id { get; private set; }
     public string FirstName { get; private set; }
     public string LastName { get; private set; }
     public string Email { get; private set; }

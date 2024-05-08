@@ -1,5 +1,6 @@
 using ErrorOr;
 using MediatR;
+using Vanto.Application.Common;
 using Vanto.Application.Repositories;
 using Vanto.Domain.Members;
 
@@ -10,10 +11,12 @@ public sealed record DeactivateMemberCommand(Guid Id) : IRequest<ErrorOr<Member>
 public class DeactivateMemberCommandHandler : IRequestHandler<DeactivateMemberCommand, ErrorOr<Member>>
 {
     private readonly IMembersRepository _membersRepository;
+    private readonly IUnitOfWork _unitOfWork;
     
-    public DeactivateMemberCommandHandler(IMembersRepository membersRepository)
+    public DeactivateMemberCommandHandler(IMembersRepository membersRepository, IUnitOfWork unitOfWork)
     {
         _membersRepository = membersRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task<ErrorOr<Member>> Handle(DeactivateMemberCommand request, CancellationToken cancellationToken)
@@ -26,7 +29,7 @@ public class DeactivateMemberCommandHandler : IRequestHandler<DeactivateMemberCo
         }
         
         member.Deactivate();
-        // save changes
+        await _unitOfWork.CommitChangesAsync();
         
         return member;
     }

@@ -1,5 +1,6 @@
 using MediatR;
 using ErrorOr;
+using Vanto.Application.Common;
 using Vanto.Application.Repositories;
 using Vanto.Domain.Members;
 
@@ -11,10 +12,12 @@ public sealed record UpdateMemberCommand(Guid Id, string FirstName, string LastN
 public class UpdateMemberCommandHandler : IRequestHandler<UpdateMemberCommand, ErrorOr<Member>>
 {
     private readonly IMembersRepository _membersRepository;
+    private readonly IUnitOfWork _unitOfWork;
     
-    public UpdateMemberCommandHandler(IMembersRepository membersRepository)
+    public UpdateMemberCommandHandler(IMembersRepository membersRepository, IUnitOfWork unitOfWork)
     {
         _membersRepository = membersRepository;
+        _unitOfWork = unitOfWork;
     }
     
     public async Task<ErrorOr<Member>> Handle(UpdateMemberCommand request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ public class UpdateMemberCommandHandler : IRequestHandler<UpdateMemberCommand, E
         }
         
         member.Update(request.FirstName, request.LastName, request.Email, request.PhoneNumber);
-        // save changes
+        await _unitOfWork.CommitChangesAsync();
         
         return member;
     }
