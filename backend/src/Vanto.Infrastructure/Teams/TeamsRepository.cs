@@ -16,6 +16,8 @@ public class TeamsRepository : ITeamsRepository
     
     public async Task<Team?> GetTeamByIdAsync(Guid id)
     {
-        return await _dbContext.Teams.FirstOrDefaultAsync(n => n.Id == id);
+        return await _dbContext.Teams
+            .Include(n => n.Members)
+            .FirstOrDefaultAsync(n => n.Id == id);
     }
 }
