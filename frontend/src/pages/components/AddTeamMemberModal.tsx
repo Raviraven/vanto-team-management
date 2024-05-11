@@ -5,6 +5,8 @@ import { InputFormField } from "components/form/InputFormField";
 import { useCreateTeamMember } from "api/teams-service";
 import { useGetRandomUserData } from "api/random-user-service";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setRefetch } from "../../store/Members.slice";
 
 interface TeamMemberModalProps {
   teamId: string;
@@ -23,6 +25,7 @@ export const AddTeamMemberModal = (props: TeamMemberModalProps) => {
       phoneNumber: "",
     },
   });
+  const dispatch = useDispatch();
 
   const { fetchData: GetRandomUserData, data: randomUserData } =
     useGetRandomUserData();
@@ -39,9 +42,8 @@ export const AddTeamMemberModal = (props: TeamMemberModalProps) => {
   };
 
   const handleAddMember = async (data: CreateTeamMember) => {
-    console.log(data);
-
     await CreateNewTeamMember(data);
+    dispatch(setRefetch(true));
     setOpen(false);
     reset();
   };

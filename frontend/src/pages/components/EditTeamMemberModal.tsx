@@ -7,6 +7,8 @@ import {
 } from "../../api/members-service";
 import React, { useEffect } from "react";
 import { ToggleInputFormField } from "components/form/ToggleInputFormField";
+import { useDispatch } from "react-redux";
+import { setRefetch } from "../../store/Members.slice";
 
 interface EditTeamMemberModalProps {
   memberId: string;
@@ -29,15 +31,12 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
       },
     },
   );
+  const dispatch = useDispatch();
 
   const { loading: isMemberDetailsLoading, data: memberDetails } =
     useGetMemberDetails(memberId);
 
-  const {
-    putData: UpdateMemberApi,
-    response,
-    loading,
-  } = useUpdateMember(memberId);
+  const { putData: UpdateMemberApi } = useUpdateMember(memberId);
 
   const handleClose = () => {
     setOpen(false);
@@ -46,6 +45,7 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
 
   const handleUpdateMember = async (data: Member) => {
     await UpdateMemberApi(data);
+    dispatch(setRefetch(true));
   };
 
   useEffect(() => {

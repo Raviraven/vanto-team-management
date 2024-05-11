@@ -1,7 +1,6 @@
 import { useGetTeamMembers } from "api/teams-service";
 import { TempConst } from "TempConst";
 import React, { useCallback, useEffect, useState } from "react";
-import { Member } from "api/types";
 import {
   Grid,
   Paper,
@@ -15,15 +14,19 @@ import {
 import { TeamDetailsHeader } from "./components/TeamDetailsHeader";
 import { EditTeamMemberModal } from "./components/EditTeamMemberModal";
 import { TeamMemberRow } from "./components/TeamMemberRow";
+import { useMembers, useRefetchMembers } from "../store/selectors";
+import { useDispatch } from "react-redux";
+import { setMembers, setRefetch } from "../store/Members.slice";
 
 export const TeamDetails = () => {
-  const [teamMembers, setTeamMembers] = useState<Member[]>([]);
   const [editMemberModalOpened, setEditMemberModalOpened] = useState(false);
   const [memberIdToEdit, setMemberIdToEdit] = useState<string>("");
-  const { loading, data } = useGetTeamMembers(TempConst.HardcodedTeamId);
-
-  // add loading states
-  // adding data to redux
+  const { fetchData, loading, data } = useGetTeamMembers(
+    TempConst.HardcodedTeamId,
+  );
+  const teamMembers = useMembers();
+  const refetchMembers = useRefetchMembers();
+  const dispatch = useDispatch();
 
   const handleEditMember = useCallback((memberId: string) => {
     setMemberIdToEdit(memberId);
@@ -31,11 +34,17 @@ export const TeamDetails = () => {
   }, []);
 
   useEffect(() => {
-    //void fetchTeamMembers();
     if (!loading && data) {
-      setTeamMembers(data);
+      dispatch(setMembers(data));
     }
-  }, [data, loading]);
+  }, [data, dispatch, loading]);
+
+  useEffect(() => {
+    if (refetchMembers) {
+      void fetchData();
+      dispatch(setRefetch(false));
+    }
+  }, [dispatch, fetchData, refetchMembers]);
 
   return (
     <>

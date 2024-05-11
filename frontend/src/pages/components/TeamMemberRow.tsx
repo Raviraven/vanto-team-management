@@ -3,6 +3,8 @@ import React, { MouseEvent, useState } from "react";
 import { useActivateMember, useDeactivateMember } from "api/members-service";
 import { IconButton, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { setRefetch } from "../../store/Members.slice";
 
 interface TeamMemberRowProps {
   member: Member;
@@ -17,6 +19,7 @@ export const TeamMemberRow = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { postData: ActivateMember } = useActivateMember(member.id);
   const { postData: DeactivateMember } = useDeactivateMember(member.id);
+  const dispatch = useDispatch();
 
   const handleMenuClose = () => {
     setMenuOpen(false);
@@ -29,11 +32,13 @@ export const TeamMemberRow = ({
 
   const handleActivateMemberClick = async () => {
     await ActivateMember();
+    dispatch(setRefetch(true));
     setMenuOpen(false);
   };
 
   const handleDeactivateMemberClick = async () => {
     await DeactivateMember();
+    dispatch(setRefetch(true));
     setMenuOpen(false);
   };
 
@@ -49,7 +54,7 @@ export const TeamMemberRow = ({
       <TableCell>{member.email}</TableCell>
       <TableCell>{member.phoneNumber}</TableCell>
       <TableCell>{member.status}</TableCell>
-      <TableCell>{member.createdAt.toString()}</TableCell>
+      <TableCell>{member?.createdAt?.toString()}</TableCell>
       <TableCell>
         <IconButton onClick={handleMenuOpen}>
           <MoreVert />

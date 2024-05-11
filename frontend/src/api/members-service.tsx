@@ -9,11 +9,11 @@ export const useGetMemberDetails = (id: string) => {
 };
 
 export const useActivateMember = (id: string) => {
-  return useApiPost<Member>(`${urlPrefix}/${id}/activate`);
+  return useApiPost(`${urlPrefix}/${id}/activate`);
 };
 
 export const useDeactivateMember = (id: string) => {
-  return useApiPost<Member>(`${urlPrefix}/${id}/deactivate`);
+  return useApiPost(`${urlPrefix}/${id}/deactivate`);
 };
 
 export const useUpdateMember = (id: string) => {
