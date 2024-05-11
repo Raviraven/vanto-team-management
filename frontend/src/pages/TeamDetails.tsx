@@ -14,9 +14,9 @@ import {
 import { TeamDetailsHeader } from "./components/TeamDetailsHeader";
 import { EditTeamMemberModal } from "./components/EditTeamMemberModal";
 import { TeamMemberRow } from "./components/TeamMemberRow";
-import { useMembers, useRefetchMembers } from "../store/selectors";
+import { useMembers, useRefetchMembers } from "store/selectors";
 import { useDispatch } from "react-redux";
-import { setMembers, setRefetch } from "../store/Members.slice";
+import { setMembers, setRefetch } from "store/Members.slice";
 
 export const TeamDetails = () => {
   const [editMemberModalOpened, setEditMemberModalOpened] = useState(false);

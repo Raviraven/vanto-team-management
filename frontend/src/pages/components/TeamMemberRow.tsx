@@ -4,7 +4,7 @@ import { useActivateMember, useDeactivateMember } from "api/members-service";
 import { IconButton, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
-import { setRefetch } from "../../store/Members.slice";
+import { setRefetch } from "store/Members.slice";
 
 interface TeamMemberRowProps {
   member: Member;

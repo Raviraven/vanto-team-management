@@ -1,4 +1,4 @@
-import { Member } from "../api/types";
+import { Member } from "api/types";
 
 export interface MembersSliceState {
   members: Member[];

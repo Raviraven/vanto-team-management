@@ -1,4 +1,3 @@
-import { axiosInstance } from "./axios";
 import { Member } from "./types";
 import { useApiGet, useApiPost, useApiPut } from "./base-hook";
 

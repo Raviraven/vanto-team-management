@@ -1,14 +1,11 @@
 import { Member } from "api/types";
 import { Box, Button, Grid, Modal, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import {
-  useGetMemberDetails,
-  useUpdateMember,
-} from "../../api/members-service";
+import { useGetMemberDetails, useUpdateMember } from "api/members-service";
 import React, { useEffect } from "react";
 import { ToggleInputFormField } from "components/form/ToggleInputFormField";
 import { useDispatch } from "react-redux";
-import { setRefetch } from "../../store/Members.slice";
+import { setRefetch } from "store/Members.slice";
 
 interface EditTeamMemberModalProps {
   memberId: string;
@@ -70,10 +67,7 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
       >
         <Grid item>
           <Typography variant={"h6"}>
-            Dodawanie nowego członka zespołu
-          </Typography>
-          <Typography variant={"body2"}>
-            Wypełnij wszystkie pola poniżej lub pobierz z internetu
+            {getValues().firstName} {getValues().lastName}
           </Typography>
         </Grid>
 

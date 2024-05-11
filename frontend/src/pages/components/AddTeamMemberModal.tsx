@@ -6,7 +6,7 @@ import { useCreateTeamMember } from "api/teams-service";
 import { useGetRandomUserData } from "api/random-user-service";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setRefetch } from "../../store/Members.slice";
+import { setRefetch } from "store/Members.slice";
 
 interface TeamMemberModalProps {
   teamId: string;
