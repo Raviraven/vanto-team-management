@@ -36,13 +36,3 @@ export interface CreateTeamMember {
   email: string;
   phoneNumber: string;
 }
-
-export interface EditMember {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  createdAt: Date;
-  status: string;
-  phoneNumber: string;
-}

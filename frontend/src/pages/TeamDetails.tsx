@@ -1,6 +1,6 @@
 import { GetTeamMembers } from "api/teams-service";
 import { TempConst } from "TempConst";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Member } from "api/types";
 import {
   Grid,
@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { TeamDetailsHeader } from "./components/TeamDetailsHeader";
 import { EditTeamMemberModal } from "./components/EditTeamMemberModal";
+import { TeamMemberRow } from "./components/TeamMemberRow";
 
 export const TeamDetails = () => {
   const [teamMembers, setTeamMembers] = useState<Member[]>([]);
@@ -26,10 +27,10 @@ export const TeamDetails = () => {
     setTeamMembers(await GetTeamMembers(TempConst.HardcodedTeamId));
   };
 
-  const handleEditMember = (memberId: string) => {
+  const handleEditMember = useCallback((memberId: string) => {
     setMemberIdToEdit(memberId);
     setEditMemberModalOpened(true);
-  };
+  }, []);
 
   useEffect(() => {
     void fetchTeamMembers();
@@ -56,37 +57,26 @@ export const TeamDetails = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {teamMembers.map((member, i) => {
-                  return (
-                    <TableRow
-                      key={`${member.firstName}${member.lastName}-${i}`}
-                    >
-                      <TableCell
-                        component={"th"}
-                        scope={"row"}
-                        onClick={() => handleEditMember(member.id)}
-                      >
-                        {`${member.firstName} ${member.lastName}`}
-                      </TableCell>
-                      <TableCell>{member.email}</TableCell>
-                      <TableCell>{member.phoneNumber}</TableCell>
-                      <TableCell>{member.status}</TableCell>
-                      <TableCell>{member.createdAt.toString()}</TableCell>
-                      <TableCell>...</TableCell>
-                    </TableRow>
-                  );
-                })}
+                {teamMembers.map((member, i) => (
+                  <TeamMemberRow
+                    key={`${member.firstName}${member.lastName}-${i}`}
+                    member={member}
+                    handleEditMember={handleEditMember}
+                  />
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
         </Grid>
       </Grid>
 
-      <EditTeamMemberModal
-        memberId={memberIdToEdit}
-        modalOpened={editMemberModalOpened}
-        setModalOpened={setEditMemberModalOpened}
-      />
+      {editMemberModalOpened && (
+        <EditTeamMemberModal
+          memberId={memberIdToEdit}
+          open={editMemberModalOpened}
+          setOpen={setEditMemberModalOpened}
+        />
+      )}
     </>
   );
 };
