@@ -1,21 +1,22 @@
 import { Member } from "api/types";
 import { Box, Button, Grid, Modal, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { InputFormField } from "../../components/form/InputFormField";
-import { GetMemberDetails, UpdateMember } from "../../api/members-service";
-import React, { useEffect, useState } from "react";
+import {
+  useGetMemberDetails,
+  useUpdateMember,
+} from "../../api/members-service";
+import React, { useEffect } from "react";
+import { ToggleInputFormField } from "components/form/ToggleInputFormField";
 
 interface EditTeamMemberModalProps {
   memberId: string;
-  //member: Member;
   open: boolean;
   setOpen: (value: boolean) => void;
 }
 
 export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
   const { memberId, open, setOpen } = props;
-  const [status, setStatus] = useState("");
-  const { handleSubmit, control, formState, reset, setValue } = useForm<Member>(
+  const { handleSubmit, control, getValues, reset, setValue } = useForm<Member>(
     {
       defaultValues: {
         id: memberId,
@@ -29,19 +30,14 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
     },
   );
 
-  const fetchUserData = async () => {
-    const result = await GetMemberDetails(memberId);
-    //setMember(result);
+  const { loading: isMemberDetailsLoading, data: memberDetails } =
+    useGetMemberDetails(memberId);
 
-    setStatus(result.status);
-
-    setValue("firstName", result.firstName);
-    setValue("lastName", result.lastName);
-    setValue("email", result.email);
-    setValue("phoneNumber", result.phoneNumber);
-    setValue("status", result.status);
-    setValue("createdAt", result.createdAt);
-  };
+  const {
+    putData: UpdateMemberApi,
+    response,
+    loading,
+  } = useUpdateMember(memberId);
 
   const handleClose = () => {
     setOpen(false);
@@ -49,18 +45,21 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
   };
 
   const handleUpdateMember = async (data: Member) => {
-    await UpdateMember(data);
-    setOpen(false);
-    reset();
+    await UpdateMemberApi(data);
   };
 
   useEffect(() => {
-    if (memberId === "") {
+    if (isMemberDetailsLoading || !memberDetails) {
       return;
     }
 
-    void fetchUserData();
-  }, []);
+    setValue("firstName", memberDetails.firstName);
+    setValue("lastName", memberDetails.lastName);
+    setValue("email", memberDetails.email);
+    setValue("phoneNumber", memberDetails.phoneNumber);
+    setValue("status", memberDetails.status);
+    setValue("createdAt", memberDetails.createdAt);
+  }, [isMemberDetailsLoading, memberDetails, setValue]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -81,30 +80,48 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
         <Grid item display={"grid"} gridTemplateColumns={"100px 1fr"}>
           <Box>
             avatar <br />
-            {status}
+            {getValues().status}
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
-            <InputFormField
+            <ToggleInputFormField
               name={"firstName"}
               label={"Nazwa"}
               control={control}
+              getValues={getValues}
+              handleSubmit={handleSubmit(handleUpdateMember)}
             />
-            <InputFormField
+
+            <ToggleInputFormField
               name={"lastName"}
               label={"Nazwisko"}
               control={control}
+              getValues={getValues}
+              handleSubmit={handleSubmit(handleUpdateMember)}
             />
-            <InputFormField
+
+            <ToggleInputFormField
               name={"email"}
               label={"Adres email"}
               control={control}
+              getValues={getValues}
+              handleSubmit={handleSubmit(handleUpdateMember)}
             />
-            <InputFormField
+
+            <ToggleInputFormField
               name={"phoneNumber"}
               label={"Numer telefonu"}
               control={control}
+              getValues={getValues}
+              handleSubmit={handleSubmit(handleUpdateMember)}
             />
+
+            <Box>
+              <Typography variant={"body2"}>Data utworzenia</Typography>
+              <Typography variant={"body1"}>
+                {getValues().createdAt?.toString()}
+              </Typography>
+            </Box>
           </Box>
         </Grid>
 
