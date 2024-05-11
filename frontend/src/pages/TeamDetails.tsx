@@ -1,4 +1,4 @@
-import { GetTeamMembers } from "api/teams-service";
+import { useGetTeamMembers } from "api/teams-service";
 import { TempConst } from "TempConst";
 import React, { useCallback, useEffect, useState } from "react";
 import { Member } from "api/types";
@@ -20,12 +20,10 @@ export const TeamDetails = () => {
   const [teamMembers, setTeamMembers] = useState<Member[]>([]);
   const [editMemberModalOpened, setEditMemberModalOpened] = useState(false);
   const [memberIdToEdit, setMemberIdToEdit] = useState<string>("");
+  const { loading, data } = useGetTeamMembers(TempConst.HardcodedTeamId);
+
   // add loading states
   // adding data to redux
-
-  const fetchTeamMembers = async () => {
-    setTeamMembers(await GetTeamMembers(TempConst.HardcodedTeamId));
-  };
 
   const handleEditMember = useCallback((memberId: string) => {
     setMemberIdToEdit(memberId);
@@ -33,8 +31,11 @@ export const TeamDetails = () => {
   }, []);
 
   useEffect(() => {
-    void fetchTeamMembers();
-  }, []);
+    //void fetchTeamMembers();
+    if (!loading && data) {
+      setTeamMembers(data);
+    }
+  }, [data, loading]);
 
   return (
     <>

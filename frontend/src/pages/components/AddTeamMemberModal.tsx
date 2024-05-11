@@ -2,8 +2,9 @@ import { Box, Button, Grid, Modal, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CreateTeamMember } from "api/types";
 import { InputFormField } from "components/form/InputFormField";
-import { CreateNewTeamMember } from "api/teams-service";
-import { GetRandomUserData } from "api/random-user-service";
+import { useCreateTeamMember } from "api/teams-service";
+import { useGetRandomUserData } from "api/random-user-service";
+import { useEffect } from "react";
 
 interface TeamMemberModalProps {
   teamId: string;
@@ -23,14 +24,13 @@ export const AddTeamMemberModal = (props: TeamMemberModalProps) => {
     },
   });
 
-  const handleGetRandomUser = async () => {
-    const result = await GetRandomUserData();
-    if (result.results.length === 0) return;
+  const { fetchData: GetRandomUserData, data: randomUserData } =
+    useGetRandomUserData();
 
-    setValue("firstName", result.results[0].name.first);
-    setValue("lastName", result.results[0].name.last);
-    setValue("email", result.results[0].email);
-    setValue("phoneNumber", result.results[0].phone);
+  const { postData: CreateNewTeamMember } = useCreateTeamMember(teamId);
+
+  const handleGetRandomUser = async () => {
+    await GetRandomUserData();
   };
 
   const handleCancel = () => {
@@ -41,10 +41,19 @@ export const AddTeamMemberModal = (props: TeamMemberModalProps) => {
   const handleAddMember = async (data: CreateTeamMember) => {
     console.log(data);
 
-    await CreateNewTeamMember(teamId, data);
+    await CreateNewTeamMember(data);
     setOpen(false);
     reset();
   };
+
+  useEffect(() => {
+    if (!randomUserData || randomUserData.results.length === 0) return;
+
+    setValue("firstName", randomUserData.results[0].name.first);
+    setValue("lastName", randomUserData.results[0].name.last);
+    setValue("email", randomUserData.results[0].email);
+    setValue("phoneNumber", randomUserData.results[0].phone);
+  }, [randomUserData, setValue]);
 
   return (
     <Modal open={open} onClose={handleCancel}>

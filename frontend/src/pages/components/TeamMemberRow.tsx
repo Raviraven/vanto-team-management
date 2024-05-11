@@ -1,6 +1,6 @@
-import { Member } from "../../api/types";
+import { Member } from "api/types";
 import React, { MouseEvent, useState } from "react";
-import { ActivateMember, DeactivateMember } from "../../api/members-service";
+import { useActivateMember, useDeactivateMember } from "api/members-service";
 import { IconButton, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 
@@ -15,6 +15,8 @@ export const TeamMemberRow = ({
 }: TeamMemberRowProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { postData: ActivateMember } = useActivateMember(member.id);
+  const { postData: DeactivateMember } = useDeactivateMember(member.id);
 
   const handleMenuClose = () => {
     setMenuOpen(false);
@@ -26,12 +28,12 @@ export const TeamMemberRow = ({
   };
 
   const handleActivateMemberClick = async () => {
-    await ActivateMember(member.id);
+    await ActivateMember();
     setMenuOpen(false);
   };
 
   const handleDeactivateMemberClick = async () => {
-    await DeactivateMember(member.id);
+    await DeactivateMember();
     setMenuOpen(false);
   };
 
