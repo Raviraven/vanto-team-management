@@ -12,11 +12,13 @@ import {
   TableRow,
 } from "@mui/material";
 import { TeamDetailsHeader } from "./components/TeamDetailsHeader";
-import { EditTeamMemberModal } from "./components/EditTeamMemberModal";
+import { EditTeamMemberModal } from "./components/EditTeamMemberModal/EditTeamMemberModal";
 import { TeamMemberRow } from "./components/TeamMemberRow";
 import { useMembers, useRefetchMembers } from "store/selectors";
 import { useDispatch } from "react-redux";
 import { setMembers, setRefetch } from "store/Members.slice";
+
+import "./TeamDetails.scss";
 
 export const TeamDetails = () => {
   const [editMemberModalOpened, setEditMemberModalOpened] = useState(false);
@@ -47,13 +49,13 @@ export const TeamDetails = () => {
   }, [dispatch, fetchData, refetchMembers]);
 
   return (
-    <>
+    <div className="team-container">
       <Grid container flexDirection={"column"}>
         <Grid item>
           <TeamDetailsHeader teamId={TempConst.HardcodedTeamId} />
         </Grid>
 
-        <Grid item>
+        <Grid item className={"team-members-container"}>
           <TableContainer component={Paper}>
             <Table>
               <TableHead>
@@ -87,6 +89,6 @@ export const TeamDetails = () => {
           setOpen={setEditMemberModalOpened}
         />
       )}
-    </>
+    </div>
   );
 };

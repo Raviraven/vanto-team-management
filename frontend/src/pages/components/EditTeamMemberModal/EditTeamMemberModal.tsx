@@ -1,11 +1,25 @@
 import { Member } from "api/types";
-import { Box, Button, Grid, Modal, Typography } from "@mui/material";
+import { Box, Chip, Grid } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { useGetMemberDetails, useUpdateMember } from "api/members-service";
 import React, { useEffect } from "react";
 import { ToggleInputFormField } from "components/form/ToggleInputFormField";
 import { useDispatch } from "react-redux";
 import { setRefetch } from "store/Members.slice";
+import {
+  DisplayLabelTypography,
+  DisplayValueTypography,
+} from "components/Common.styled";
+import {
+  FormContainer,
+  EditMemberModal,
+  ModalContent,
+  Title,
+  FormAvatarContainer,
+  FormDetailsContainer,
+  ButtonContainer,
+  CloseButton,
+} from "./EditTeamMemberModal.styled";
 
 interface EditTeamMemberModalProps {
   memberId: string;
@@ -59,25 +73,24 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
   }, [isMemberDetailsLoading, memberDetails, setValue]);
 
   return (
-    <Modal open={open} onClose={handleClose}>
-      <Grid
-        container
-        flexDirection={"column"}
-        sx={{ backgroundColor: "#FCFCFC" }}
-      >
+    <EditMemberModal open={open} onClose={handleClose}>
+      <ModalContent container>
         <Grid item>
-          <Typography variant={"h6"}>
+          <Title variant={"h6"}>
             {getValues().firstName} {getValues().lastName}
-          </Typography>
+          </Title>
         </Grid>
 
-        <Grid item display={"grid"} gridTemplateColumns={"100px 1fr"}>
-          <Box>
-            avatar <br />
-            {getValues().status}
-          </Box>
+        <FormContainer item>
+          <FormAvatarContainer>
+            avatar
+            <Chip
+              label={getValues().status === "Active" ? "Aktywny" : "Blokada"}
+              color={getValues().status === "Active" ? "success" : "error"}
+            />
+          </FormAvatarContainer>
 
-          <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
+          <FormDetailsContainer>
             <ToggleInputFormField
               name={"firstName"}
               label={"Nazwa"}
@@ -111,18 +124,18 @@ export const EditTeamMemberModal = (props: EditTeamMemberModalProps) => {
             />
 
             <Box>
-              <Typography variant={"body2"}>Data utworzenia</Typography>
-              <Typography variant={"body1"}>
+              <DisplayLabelTypography>Data utworzenia</DisplayLabelTypography>
+              <DisplayValueTypography>
                 {getValues().createdAt?.toString()}
-              </Typography>
+              </DisplayValueTypography>
             </Box>
-          </Box>
-        </Grid>
+          </FormDetailsContainer>
+        </FormContainer>
 
-        <Grid item>
-          <Button onClick={handleClose}>Zamknij</Button>
-        </Grid>
-      </Grid>
-    </Modal>
+        <ButtonContainer item>
+          <CloseButton onClick={handleClose}>Zamknij</CloseButton>
+        </ButtonContainer>
+      </ModalContent>
+    </EditMemberModal>
   );
 };

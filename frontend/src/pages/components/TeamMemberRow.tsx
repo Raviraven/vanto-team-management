@@ -1,7 +1,14 @@
 import { Member } from "api/types";
 import React, { MouseEvent, useState } from "react";
 import { useActivateMember, useDeactivateMember } from "api/members-service";
-import { IconButton, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
+import {
+  Chip,
+  IconButton,
+  Menu,
+  MenuItem,
+  TableCell,
+  TableRow,
+} from "@mui/material";
 import { MoreVert } from "@mui/icons-material";
 import { useDispatch } from "react-redux";
 import { setRefetch } from "store/Members.slice";
@@ -53,7 +60,12 @@ export const TeamMemberRow = ({
       </TableCell>
       <TableCell>{member.email}</TableCell>
       <TableCell>{member.phoneNumber}</TableCell>
-      <TableCell>{member.status}</TableCell>
+      <TableCell>
+        <Chip
+          label={member.status === "Active" ? "Aktywny" : "Blokada"}
+          color={member.status === "Active" ? "success" : "error"}
+        />
+      </TableCell>
       <TableCell>{member?.createdAt?.toString()}</TableCell>
       <TableCell>
         <IconButton onClick={handleMenuOpen}>

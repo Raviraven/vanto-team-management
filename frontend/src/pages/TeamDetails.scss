@@ -1,0 +1,47 @@
+@import "Variables";
+
+.team-container {
+  padding: 32px;
+
+  & .team-details-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 3.5px;
+
+    & .title {
+      font-size: 20px;
+      line-height: 24.2px;
+      font-weight: 400;
+      color: $primary;
+      margin-bottom: 4px;
+    }
+
+    & .description {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14.52px;
+      color: $secondary;
+    }
+
+    & .buttons-container {
+      display: flex;
+      justify-content: center;
+
+      & > button {
+        height: 36px;
+        font-weight: 500;
+        line-height: 16.94px;
+        color: $primary;
+        background-color: $button-background;
+      }
+
+      & > button:first-child {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  & .team-members-container {
+    margin-top: 32px;
+  }
+}

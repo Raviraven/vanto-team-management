@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Modal, Typography } from "@mui/material";
+import { Button, Grid, Modal, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { CreateTeamMember } from "api/types";
 import { InputFormField } from "components/form/InputFormField";
@@ -7,6 +7,9 @@ import { useGetRandomUserData } from "api/random-user-service";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setRefetch } from "store/Members.slice";
+
+import "./AddTeamMemberModal.scss";
+import { DownloadingOutlined } from "@mui/icons-material";
 
 interface TeamMemberModalProps {
   teamId: string;
@@ -58,33 +61,36 @@ export const AddTeamMemberModal = (props: TeamMemberModalProps) => {
   }, [randomUserData, setValue]);
 
   return (
-    <Modal open={open} onClose={handleCancel}>
-      <Grid
-        container
-        flexDirection={"column"}
-        sx={{ backgroundColor: "#FCFCFC" }}
-      >
+    <Modal
+      open={open}
+      onClose={handleCancel}
+      className={"add-team-member-modal"}
+    >
+      <Grid container flexDirection={"column"} className={"content"}>
         <Grid item>
-          <Typography variant={"h6"}>
+          <Typography variant={"h6"} className={"title"}>
             Dodawanie nowego członka zespołu
           </Typography>
-          <Typography variant={"body2"}>
+          <Typography variant={"body2"} className={"description"}>
             Wypełnij wszystkie pola poniżej lub pobierz z internetu
           </Typography>
         </Grid>
 
-        <Grid item>
-          <Button onClick={handleGetRandomUser}>
+        <Grid item className={"form-container"}>
+          <Button
+            onClick={handleGetRandomUser}
+            startIcon={<DownloadingOutlined />}
+            className={"random-data-button"}
+          >
             Wypełnij formularz automatycznie
           </Button>
-          <Typography variant={"body2"}>
+          <Typography variant={"body2"} className={"random-data-description"}>
             Uwaga! Wszystkie pola formularza zostaną nadpisane danymi z
             internetu
           </Typography>
-        </Grid>
 
-        <Grid item>
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <div className={"form-inputs"}>
+            {/*<Box sx={{ display: "flex", flexDirection: "column" }}>*/}
             <InputFormField
               name={"firstName"}
               label={"Nazwa"}
@@ -105,12 +111,20 @@ export const AddTeamMemberModal = (props: TeamMemberModalProps) => {
               label={"Numer telefonu"}
               control={control}
             />
-          </Box>
+            {/*</Box>*/}
+          </div>
         </Grid>
 
-        <Grid item>
-          <Button onClick={handleCancel}>Anuluj</Button>
-          <Button onClick={handleSubmit(handleAddMember)}>Potwierdź</Button>
+        <Grid item className={"buttons-container"}>
+          <Button onClick={handleCancel} className={"cancel-button"}>
+            Anuluj
+          </Button>
+          <Button
+            onClick={handleSubmit(handleAddMember)}
+            className={"submit-button"}
+          >
+            Potwierdź
+          </Button>
         </Grid>
       </Grid>
     </Modal>

@@ -19,9 +19,10 @@ export const InputFormField = (props: InputFormFieldProps) => {
           label={label}
           variant={"outlined"}
           fullWidth
-          margin={"normal"}
+          margin={"none"}
           onChange={onChange}
           value={value}
+          size={"small"}
         />
       )}
     />

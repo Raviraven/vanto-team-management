@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
-import { AddTeamMemberModal } from "./AddTeamMemberModal";
+import { AddTeamMemberModal } from "./AddTeamMemberModal/AddTeamMemberModal";
 import { useState } from "react";
+import { AddOutlined, CloudDownloadOutlined } from "@mui/icons-material";
 
 interface TeamDetailsHeaderProps {
   teamId: string;
@@ -16,19 +17,28 @@ export const TeamDetailsHeader = (props: TeamDetailsHeaderProps) => {
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+      <div className={"team-details-header"}>
+        {/*<Box sx={{ display: "flex", justifyContent: "space-between" }}>*/}
         <Box component={"section"}>
-          <Typography variant={"h4"}>Lista członków zespołu</Typography>
-          <Typography variant={"body1"}>
+          <Typography variant={"h4"} className={"title"}>
+            Lista członków zespołu
+          </Typography>
+          <Typography variant={"body1"} className={"description"}>
             Zarządzaj listą członków swojego zespołu
           </Typography>
         </Box>
 
-        <Box>
-          <Button>Zaimportuj członka zespołu</Button>
-          <Button onClick={openAddNewMemberModal}>Dodaj członka zespołu</Button>
-        </Box>
-      </Box>
+        <div className={"buttons-container"}>
+          <Button value={""} startIcon={<CloudDownloadOutlined />}>
+            Zaimportuj członka zespołu
+          </Button>
+
+          <Button onClick={openAddNewMemberModal} startIcon={<AddOutlined />}>
+            Dodaj członka zespołu
+          </Button>
+        </div>
+        {/*</Box>*/}
+      </div>
       <AddTeamMemberModal
         teamId={teamId}
         open={newMemberModalOpened}

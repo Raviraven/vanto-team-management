@@ -1,0 +1,87 @@
+@import "Variables";
+
+.add-team-member-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & .content {
+    width: 480px;
+    background-color: $white;
+    padding: 16px;
+    border-radius: 8px;
+
+    & .title {
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 21.78px;
+      color: $primary;
+    }
+
+    & .description {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16.94px;
+      color: $secondary;
+    }
+
+
+    & .form-container {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      & .random-data-button {
+        height: 36px;
+        font-weight: 500;
+        line-height: 16.94px;
+        color: $primary;
+        background-color: $button-background;
+      }
+
+      & .random-data-description {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 14.52px;
+        color: #8F6B00;
+      }
+
+      & .form-inputs {
+        margin-top: 32px;
+        display: flex;
+        flex-direction: column;
+        & div {
+          margin-bottom: 8px;
+        }
+      }
+    }
+
+
+    & .buttons-container {
+      margin-top: 32px;
+      display: flex;
+      gap: 8px;
+
+      & button {
+        width: 100%;
+        height: 29px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 16.94px;
+      }
+
+      & .submit-button {
+        background-color: $primary-button-background;
+        color: $white;
+
+      }
+
+      & .cancel-button {
+        border: solid 1px #CFC9CF;
+        color: $primary;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { InputFormField } from "./InputFormField";
 import React, { useState } from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import { Member } from "api/types";
 import { UseFormGetValues } from "react-hook-form";
 import {
@@ -8,6 +8,11 @@ import {
   DoneOutline,
   ModeEditOutline,
 } from "@mui/icons-material";
+import {
+  DisplayLabelTypography,
+  DisplayValueTypography,
+  FlexBox,
+} from "../Common.styled";
 
 interface ToggleInputFormFieldProps {
   name: "firstName" | "lastName" | "email" | "phoneNumber" | "status";
@@ -35,7 +40,7 @@ export const ToggleInputFormField = (props: ToggleInputFormFieldProps) => {
   };
 
   return edit ? (
-    <Box>
+    <FlexBox>
       <InputFormField name={name} label={label} control={control} />
       <IconButton onClick={handleSave}>
         <DoneOutline />
@@ -43,12 +48,12 @@ export const ToggleInputFormField = (props: ToggleInputFormFieldProps) => {
       <IconButton onClick={handleCancel}>
         <CloseOutlined />
       </IconButton>
-    </Box>
+    </FlexBox>
   ) : (
-    <Box>
+    <Box sx={{ display: "flex", justifyContent: "space-between" }}>
       <Box>
-        <Typography variant={"body2"}>{label}</Typography>
-        <Typography variant={"body1"}>{getValues(name)}</Typography>
+        <DisplayLabelTypography>{label}</DisplayLabelTypography>
+        <DisplayValueTypography>{getValues(name)}</DisplayValueTypography>
       </Box>
       <Box>
         <IconButton onClick={handleEdit}>
