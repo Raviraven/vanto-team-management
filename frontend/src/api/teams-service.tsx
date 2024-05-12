@@ -10,3 +10,7 @@ export const useGetTeamMembers = (id: string) => {
 export const useCreateTeamMember = (teamId: string) => {
   return useApiPost(`${urlPrefix}/${teamId}/members`);
 };
+
+export const useAddRandomTeamMember = (teamId: string) => {
+  return useApiPost(`${urlPrefix}/${teamId}/members/random`);
+};

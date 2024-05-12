@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Vanto.Api.Contracts.Members;
 using Vanto.Api.Contracts.Teams;
+using Vanto.Application.Teams.Commands.AddRandomUser;
 using Vanto.Application.Teams.Commands.CreateAndAddTeamMember;
 using Vanto.Application.Teams.Queries.GetTeam;
 
@@ -49,7 +50,19 @@ namespace Vanto.Api.Controllers
             var result = await _mediator.Send(command);
             
             return result.Match(
-                val => CreatedAtAction(nameof(GetTeam), new { teamId }, new TeamResponse(val)),
+                val => CreatedAtAction(nameof(AddTeamMember), new { teamId }, new TeamResponse(val)),
+                errors => Problem(ConvertErrorsToString(errors))
+            );
+        }
+        
+        [HttpPost("{teamId:guid}/members/random")]
+        public async Task<IActionResult> AddRandomTeamMember(Guid teamId)
+        {
+            var command = new AddRandomUserCommand(teamId);
+            var result = await _mediator.Send(command);
+            
+            return result.Match(
+                val => CreatedAtAction(nameof(AddRandomTeamMember), new { teamId }, new TeamResponse(val)),
                 errors => Problem(ConvertErrorsToString(errors))
             );
         }

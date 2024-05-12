@@ -2,6 +2,9 @@ import { Box, Button, Typography } from "@mui/material";
 import { AddTeamMemberModal } from "./AddTeamMemberModal/AddTeamMemberModal";
 import { useState } from "react";
 import { AddOutlined, CloudDownloadOutlined } from "@mui/icons-material";
+import { useAddRandomTeamMember } from "../../api/teams-service";
+import { setRefetch } from "../../store/Members.slice";
+import { useDispatch } from "react-redux";
 
 interface TeamDetailsHeaderProps {
   teamId: string;
@@ -10,9 +13,16 @@ interface TeamDetailsHeaderProps {
 export const TeamDetailsHeader = (props: TeamDetailsHeaderProps) => {
   const { teamId } = props;
   const [newMemberModalOpened, setNewMemberModalOpened] = useState(false);
+  const { postData: ImportRandomMember } = useAddRandomTeamMember(teamId);
+  const dispatch = useDispatch();
 
   const openAddNewMemberModal = () => {
     setNewMemberModalOpened(true);
+  };
+
+  const addRandomMember = async () => {
+    await ImportRandomMember();
+    dispatch(setRefetch(true));
   };
 
   return (
@@ -29,7 +39,10 @@ export const TeamDetailsHeader = (props: TeamDetailsHeaderProps) => {
         </Box>
 
         <div className={"buttons-container"}>
-          <Button value={""} startIcon={<CloudDownloadOutlined />}>
+          <Button
+            onClick={addRandomMember}
+            startIcon={<CloudDownloadOutlined />}
+          >
             Zaimportuj członka zespołu
           </Button>
 

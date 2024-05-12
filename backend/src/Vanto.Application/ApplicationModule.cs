@@ -12,12 +12,10 @@ public static class ApplicationModule
             opts.RegisterServicesFromAssemblyContaining(typeof(ApplicationModule));
         });
         
-        // TODO: check registration of validators
         services.AddValidatorsFromAssemblyContaining(typeof(ApplicationModule));
         
-        // services.AddMediatR(Assembly.GetExecutingAssembly());
-        // services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-
+        services.AddHttpClient();
+        
         return services;
     }
 }
