@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Other", "Other", "{4176B88C
 		..\.gitignore = ..\.gitignore
 		.editorconfig = .editorconfig
 		..\docker-compose.yml = ..\docker-compose.yml
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5B8C0511-5034-4DFA-B435-C8CEB804CC45}"
